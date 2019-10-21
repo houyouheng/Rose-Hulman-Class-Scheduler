@@ -1,0 +1,30 @@
+:root {
+    --mdc-theme-primary: #800000;
+}
+
+body {
+    background: #DDDDDD;
+    margin: 0px;
+}
+
+.page-container {
+    padding-top: 70px;
+}
+
+.email,
+.password {
+    display: block;
+    width: 300px;
+    margin: 20px auto;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    margin: auto;
+}
+
+.button-container button {
+    margin: 3px;
+}

@@ -12,21 +12,23 @@ var rh = rh || {};
 rh.variableName = "";
 
 /** function and class syntax examples */
-rh.functionName = function () {
-	/** function body */
+rh.enableEmailPassword = function () {
+	const username = new mdc.textField.MDCTextField(document.querySelector('.email'));
+	const password = new mdc.textField.MDCTextField(document.querySelector('.password'));
+	new mdc.ripple.MDCRipple(document.querySelector('#createAccount'));
+	new mdc.ripple.MDCRipple(document.querySelector('#login'));
 };
-
-rh.ClassName = class {
-	/** constructor */
-	constructor() {
-
-	}
-	methodName() {
-
-	}
-}
 
 /* Main */
 $(document).ready(() => {
-    console.log("Ready");
+	console.log("Ready");
+	if ($("#index-page").length) {
+		rh.enableEmailPassword();
+
+		$("#login").click(function () {
+			window.location.href = "/mainPage.html";
+		});
+	}else if($("#main-page").length){
+
+	}
 });

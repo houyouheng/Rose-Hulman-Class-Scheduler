@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <title>Rose-Hulman Class Scheduler</title>
+</head>
+
+<body>
+    <nav class="navbar fixed-top">
+        Rose-Hulman Class Scheduler
+    </nav>
+    <div id="main-page" class="container page-container">
+        <div>
+            Add courses you've taken:
+        </div>
+        <div id="fab" data-toggle="modal" data-target="#addQuotesdialog">
+            <p><img src="images/fab.png" alt="button" />Add Class</p>
+        </div>
+
+        <div class="input-group">
+            <select class="custom-select" id="inputGroupSelect04">
+                <option selected>Select a Course Category</option>
+                <option value="1">Compuer Science</option>
+                <option value="2">HSS</option>
+                <option value="3">Examples</option>
+            </select>
+            <div class="input-group-append">
+                <button id="generateButton" class="btn btn-outline-secondary" type="button">Generate</button>
+            </div>
+        </div>
+
+    </div>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/popper.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="/__/firebase/6.3.5/firebase-app.js"></script>
+    <script src="/__/firebase/6.3.5/firebase-firestore.js"></script>
+    <script src="/__/firebase/init.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+
+</html>

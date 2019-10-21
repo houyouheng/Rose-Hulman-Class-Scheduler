@@ -5,8 +5,16 @@ body {
 .navbar {
     background-color: #800000;
     color: white;
+    font-size: 1.2em;
+    padding: 17px;
 }
 
 .page-container {
-    margin-top: 50px;
+    margin-top: 75px;
+    
+}
+
+#generateButton{
+    background-color: #800000;
+    color: aliceblue;
 }
