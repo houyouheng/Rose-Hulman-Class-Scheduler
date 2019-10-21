@@ -4,15 +4,27 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/main.css">
     <title>Rose-Hulman Class Scheduler</title>
 </head>
 
 <body>
-    <nav class="navbar fixed-top">
-        Rose-Hulman Class Scheduler
-    </nav>
+    <nav class="navbar navbar-dark fixed-top">
+            <a class="navbar-brand" href="/">Rose-Hulman Class Scheduler</a>
+            <div class="btn-group">
+              <span data-toggle="dropdown">
+                <i class="material-icons">menu</i>
+              </span>
+              <div class="dropdown-menu dropdown-menu-right ">
+                <button class="dropdown-item" type="button" data-target="#editQuoteDialog" data-toggle="modal">Course FlowChart</button>
+                <button class="dropdown-item" type="button" data-target="#deleteQuoteDialog" data-toggle="modal">User Information</button>
+                <button class="dropdown-item" type="button" data-target="#editQuoteDialog" data-toggle="modal">Settings</button>
+                <button class="dropdown-item" type="button" data-target="#deleteQuoteDialog" data-toggle="modal">Log out</button>
+              </div>
+            </div>
+          </nav>
     <div id="main-page" class="container page-container">
         <div>
             Add courses you've taken:
