@@ -6,23 +6,36 @@
  */
 var rh = rh || {};
 
+rh.COLLECTION_CLASSES = "Classes";
+rh.KEY_DEPARTMENT = "department";
+rh.KEY_COURSE = "course";
+rh.KEY_LAST_TOUCHED = "lastTouched";
 rh.ROSEFIRE_REGISTRY_TOKEN = "6c0ca7cf-3d91-4559-aecc-ffa8fb5aee76";
 
+rh.mainpageManager = null;
 rh.schdulerAuthManager = null;
 
-rh.FbMovieQuotesManager = class {
+rh.className = class {
+	constructor(id, department, course) {
+		this.id = id;
+		this.department = department;
+		this.course = course;
+	}
+}
+
+rh.MainpageManager = class {
 	constructor() {
-		this._ref = firebase.firestore().collection(rh.COLLECTION_MOVIEQUOTES);
+		this._ref = firebase.firestore().collection(rh.COLLECTION_CLASSES);
 		this._documentSnapshots = [];
 		this._unsubscribe = null;
 	}
+
 	beginListening(changeListener) {
-		console.log("Listening for Movie quotes");
+		console.log("Listening for Adding Classes");
 
 		this._unsubscribe = this._ref.orderBy(rh.KEY_LAST_TOUCHED, "desc").limit(50).onSnapshot((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				this._documentSnapshots = querySnapshot.docs;
-				// console.log("Updated " + this._documentSnapshots.length + " movie quotes");
 
 				if (changeListener) {
 					changeListener();
@@ -30,13 +43,11 @@ rh.FbMovieQuotesManager = class {
 			});
 		})
 	}
-	stopListening() {
 
-	}
-	add(quotes, movie) {
+	add(department, course) {
 		this._ref.add({
-			[rh.KEY_QUOTE]: quotes,
-			[rh.KEY_MOVIE]: movie,
+			[rh.KEY_DEPARTMENT]: department,
+			[rh.KEY_COURSE]: course,
 			[rh.KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now()
 		}).then((docRef) => {
 			console.log("Doc added with id", docRef.id);
@@ -45,63 +56,52 @@ rh.FbMovieQuotesManager = class {
 		});
 
 	}
-	delete(id) {
+
+	delete() {
 
 	}
+
 	get length() {
 		return this._documentSnapshots.length;
 	}
-	// getQuoteAtIndex(index) {
-	// 	return this._documentSnapshots[index].id;
-	// }
-	// getIdAtIndex(index) {
-	// 	return this._documentSnapshots[index].get(rh.KEY_QUOTE);
-	// }
-	// getMovieAtIndex(index) {
-	// 	return this._documentSnapshots[index].get(rh.KEY_MOVIE);
-	// }
 
-	getMovieQuoteAtIndex(index) {
-		return new rh.movieQuote(
+	getCourseAtIndex(index) {
+		return new rh.className(
 			this._documentSnapshots[index].id,
-			this._documentSnapshots[index].get(rh.KEY_QUOTE),
-			this._documentSnapshots[index].get(rh.KEY_MOVIE)
+			this._documentSnapshots[index].get(rh.KEY_DEPARTMENT),
+			this._documentSnapshots[index].get(rh.KEY_COURSE)
 		);
 	}
 
 }
 
-rh.ListPageController = class {
+rh.MainPageController = class {
 	constructor() {
-		rh.fbMovieQuotesManager.beginListening(this.updateView.bind(this));
+		rh.mainpageManager.beginListening(this.updateView.bind(this));
 
-		$("#addQuotesdialog").on("show.bs.modal", function (e) {
-			$("#inputQuote").val("");
-			$("#inputMovie").val("");
+		$("#addClassDialog").on("show.bs.modal", function (e) {
+			$("#inputDepartment").val("");
+			$("#inputCourse").val("");
 		});
 
-		$("#addQuotesdialog").on("shown.bs.modal", function (e) {
-			$("#inputQuote").trigger("focus");
+		$("#addClassDialog").on("shown.bs.modal", function (e) {
+			$("#inputDepartment").trigger("focus");
 		});
 
-		$("#submitAddQuote").click((event) => {
-			const quote = $("#inputQuote").val();
-			const movie = $("#inputMovie").val();
-			rh.fbMovieQuotesManager.add(quote, movie);
-			$("#inputQuote").val("");
-			$("#inputMovie").val("");
+		$("#submitAddClass").click((event) => {
+			const department = $("#inputDepartment").val();
+			const course = $("#inputCourse").val();
+			rh.mainpageManager.add(department, course);
+			$("#inputDepartment").val("");
+			$("#inputCourse").val("");
 		});
 	}
 	updateView() {
-		// console.log("The model object has changed. I need to use it!", this);
 		$("#quoteList").removeAttr("id").hide();
 
 		let $newList = $("<ul></ul>").attr("id", "quoteList").addClass("list-group");
 		for (let k = 0; k < rh.fbMovieQuotesManager.length; k++) {
 			const $newCard = this.createQuoteCard(
-				// rh.fbMovieQuotesManager.getIdAtIndex(k),
-				// rh.fbMovieQuotesManager.getMovieAtIndex(k),
-				// rh.fbMovieQuotesManager.getQuoteAtIndex(k)
 				rh.fbMovieQuotesManager.getMovieQuoteAtIndex(k)
 			);
 			$newList.append($newCard);
@@ -110,10 +110,6 @@ rh.ListPageController = class {
 	}
 
 	createQuoteCard(movieQuote) {
-		// const $newCard = $("#quoteCardTemplate").clone().attr("id", movieQuote.id).removeClass("invisible");
-		// $newCard.find(".quote-card-quote").text(movieQuote.quote);
-		// $newCard.find(".quote-card-movie").text(movieQuote.movie);
-
 		const $newCard = $(
 			`<li id="${movieQuote.id}" class="quote-card list-group-item" aria-disabled="true">
 				<div class="quote-card-quote">${movieQuote.quote}</div>
@@ -122,21 +118,11 @@ rh.ListPageController = class {
 
 		$newCard.click((event) => {
 			console.log("you have clicked", movieQuote);
-			// rh.storage.setMovieQuoteId(movieQuote.id);
-			//Nav away to the new page
 			window.location.href = `/moviequote.html?id=${movieQuote.id}`;
 		});
 		return $newCard;
 	}
 }
-
-
-
-
-
-
-
-
 
 rh.SchdulerAuthManager = class {
 	constructor() {
@@ -199,5 +185,7 @@ $(document).ready(() => {
 
 	} else if ($("#main-page").length) {
 		console.log("On the main page");
+		rh.mainpageManager = new rh.MainpageManager();
+		new rh.MainPageController();
 	}
 });

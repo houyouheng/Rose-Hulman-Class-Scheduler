@@ -33,14 +33,17 @@
         <div>
             Add courses you've taken:
         </div>
-        <div id="fab" data-toggle="modal" data-target="#addQuotesdialog">
-            <p><img src="images/fab.png" alt="button" />Add Class</p>
+
+        <div class="classContainer">
+            <div id="fab" data-toggle="modal" data-target="#addClassDialog">
+                <p><img id="fabIcon" src="images/baseline_add_circle_black_18dp.png" alt="button" />Add Class</p>
+            </div>
         </div>
 
         <div class="input-group">
             <select class="custom-select" id="inputGroupSelect04">
                 <option selected>Select a Course Category</option>
-                <option value="1">Compuer Science</option>
+                <option value="1">Computer Science</option>
                 <option value="2">HSS</option>
                 <option value="3">Examples</option>
             </select>
@@ -50,6 +53,41 @@
         </div>
 
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addClassDialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add a Class</h5>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="form-group row">
+                        <label for="inputDepartment" class="col-sm-4 mt-sm-1 control-label">Input Department:</label>
+                        <div class="col-sm-12">
+                            <input type="text" id="inputDepartment" class="form-control" placeholder="Department">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputCourse" class="col-sm-4 mt-sm-1 control-label">Input Course:</label>
+                        <div class="col-sm-12">
+                            <input type="text" id="inputCourse" class="form-control" placeholder="Name of the Course">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">CANCEL</button>
+                    <button type="button" id="submitAddClass" class="btn btn-outline-light"
+                        data-dismiss="modal">ADD</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="scripts/jquery.min.js"></script>
     <script src="scripts/popper.min.js"></script>
     <script src="scripts/bootstrap.min.js"></script>

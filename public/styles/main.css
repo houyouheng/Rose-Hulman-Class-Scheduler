@@ -43,5 +43,33 @@ body {
 
     max-height: 40px;
     max-width: 40px;
+}
 
+#fabIcon {
+    z-index: infinite;
+}
+
+#fabIcon:active {
+    transform: translateY(3px);
+    opacity: 0.85;
+}
+
+.btn-outline-light {
+    color: #800000;
+
+}
+
+.modal-header {
+    border: none;
+    padding-bottom: 0;
+}
+
+.modal-footer {
+    border: none;
+    padding-top: 0;
+}
+
+#fabIcon{
+    height: 100px;
+    width: 100px;
 }
