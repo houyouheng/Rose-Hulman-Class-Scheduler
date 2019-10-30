@@ -45,11 +45,11 @@ body {
     max-width: 40px;
 }
 
-#fabIcon {
+.fabIcon {
     z-index: infinite;
 }
 
-#fabIcon:active {
+.fabIcon:active {
     transform: translateY(3px);
     opacity: 0.85;
 }
@@ -72,4 +72,8 @@ body {
 #fabIcon{
     height: 100px;
     width: 100px;
+}
+
+#classRecommandContainer{
+    padding: 0px;
 }

@@ -10,6 +10,7 @@ rh.COLLECTION_CLASSES = "Classes";
 rh.KEY_DEPARTMENT = "department";
 rh.KEY_COURSE = "course";
 rh.KEY_LAST_TOUCHED = "lastTouched";
+rh.KEY_UID = "uid"
 rh.ROSEFIRE_REGISTRY_TOKEN = "6c0ca7cf-3d91-4559-aecc-ffa8fb5aee76";
 
 rh.mainpageManager = null;
@@ -24,16 +25,21 @@ rh.className = class {
 }
 
 rh.MainpageManager = class {
-	constructor() {
+	constructor(url_uid) {
 		this._ref = firebase.firestore().collection(rh.COLLECTION_CLASSES);
 		this._documentSnapshots = [];
 		this._unsubscribe = null;
+		this._uid = url_uid;
 	}
 
 	beginListening(changeListener) {
 		console.log("Listening for Adding Classes");
+		let query = this._ref.orderBy(rh.KEY_LAST_TOUCHED, "desc").limit(50);
+		if (this._uid) {
+			query = query.where(rh.KEY_UID, "==", this._uid);
+		}
 
-		this._unsubscribe = this._ref.orderBy(rh.KEY_LAST_TOUCHED, "desc").limit(50).onSnapshot((querySnapshot) => {
+		this._unsubscribe = query.onSnapshot((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				this._documentSnapshots = querySnapshot.docs;
 
@@ -48,7 +54,8 @@ rh.MainpageManager = class {
 		this._ref.add({
 			[rh.KEY_DEPARTMENT]: department,
 			[rh.KEY_COURSE]: course,
-			[rh.KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now()
+			[rh.KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
+			[rh.KEY_UID]: rh.schdulerAuthManager.uid
 		}).then((docRef) => {
 			console.log("Doc added with id", docRef.id);
 		}).catch((error) => {
@@ -57,8 +64,12 @@ rh.MainpageManager = class {
 
 	}
 
-	delete() {
-
+	delete(id) {
+		return this._ref.doc(id).delete().then(function () {
+			console.log("Document successfully deleted!");
+		}).catch(function (error) {
+			console.error("Error removing document: ", error);
+		});
 	}
 
 	get length() {
@@ -95,31 +106,52 @@ rh.MainPageController = class {
 			$("#inputDepartment").val("");
 			$("#inputCourse").val("");
 		});
+
+		$("#menuLogOut").click((event) => {
+			rh.schdulerAuthManager.signOut();
+		});
+
+		$("#menuFlowChart").click((event) => {
+			window.open("https://www.rose-hulman.edu/academics/academic-departments/computer-science-software-engineering/_assets/pdfs/CS-Sample-Program.pdf");
+		});
+
+		$("#generateButton").click((event) => {
+			$("#classRecommandContainer").append(this.createRecommandClassCard("230", "CSSE"));
+		});
 	}
 	updateView() {
-		$("#quoteList").removeAttr("id").hide();
-
-		let $newList = $("<ul></ul>").attr("id", "quoteList").addClass("list-group");
-		for (let k = 0; k < rh.fbMovieQuotesManager.length; k++) {
-			const $newCard = this.createQuoteCard(
-				rh.fbMovieQuotesManager.getMovieQuoteAtIndex(k)
+		$("#classList").removeAttr("id").hide();
+		let $newList = $("<div></div>").attr("id", "classList");
+		for (let k = 0; k < rh.mainpageManager.length; k++) {
+			const $newCard = this.createClassCard(
+				rh.mainpageManager.getCourseAtIndex(k)
 			);
 			$newList.append($newCard);
 		}
-		$("#quoteListContainer").append($newList);
+		$("#classContainer").prepend($newList);
+		console.log("Test");
 	}
 
-	createQuoteCard(movieQuote) {
+	createClassCard(classes) {
 		const $newCard = $(
-			`<li id="${movieQuote.id}" class="quote-card list-group-item" aria-disabled="true">
-				<div class="quote-card-quote">${movieQuote.quote}</div>
-				<div class="quote-card-movie text-right blockquote-footer">${movieQuote.movie}</div>
-			</li>`);
+			`<div>
+                <p><img id="${classes.id}" class="fabIcon" src="images/baseline_remove_circle_black_48dp.png" alt="button" />${classes.department} ${classes.course}</p>
+            </div>`);
 
 		$newCard.click((event) => {
-			console.log("you have clicked", movieQuote);
-			window.location.href = `/moviequote.html?id=${movieQuote.id}`;
+			console.log("you have clicked", classes);
+			rh.mainpageManager.delete(classes.id);
+			if (rh.mainpageManager.length == 1) $("#classList").hide();
 		});
+		return $newCard;
+	}
+
+	createRecommandClassCard(course, department) {
+		const $newCard = $(
+			`<li class="quote-card list-group-item" aria-disabled="true">
+				<div class="quote-card-quote">${department} ${course}</div>
+				<div class="quote-card-movie blockquote-footer">DATA STRUCTURES AND ALGORITHM ANALYSIS</div>
+			</li>`);
 		return $newCard;
 	}
 }
@@ -153,7 +185,7 @@ rh.SchdulerAuthManager = class {
 			}
 			console.log("Rosefire login worked!", rfUser);
 			firebase.auth().signInWithCustomToken(rfUser.token).then(function (authData) {
-				window.location.href = "/mainPage.html";
+
 
 			}, function (error) {
 				// User not logged in!
@@ -164,7 +196,7 @@ rh.SchdulerAuthManager = class {
 	}
 
 	signOut() {
-
+		firebase.auth().signOut();
 	}
 }
 
@@ -176,16 +208,38 @@ rh.LoginPageController = class {
 	}
 }
 
-$(document).ready(() => {
-	console.log("Ready");
-	rh.schdulerAuthManager = new rh.SchdulerAuthManager();
+rh.Initialization = function () {
+	var urlParams = new URLSearchParams(window.location.search);
 	if ($("#login-page").length) {
 		console.log("On the login page");
 		new rh.LoginPageController();
 
 	} else if ($("#main-page").length) {
 		console.log("On the main page");
-		rh.mainpageManager = new rh.MainpageManager();
+		const url_uid = urlParams.get('uid');
+		console.log('url_uid :', url_uid);
+
+		rh.mainpageManager = new rh.MainpageManager(url_uid);
 		new rh.MainPageController();
 	}
+};
+
+rh.CheckForRedirects = function () {
+	if ($("#login-page").length && rh.schdulerAuthManager.isSignIn) {
+		// window.location.href = "/mainPage.html";
+		window.location.href = `/mainPage.html?uid=${rh.schdulerAuthManager.uid}`;
+	}
+	if (!$("#login-page").length && !rh.schdulerAuthManager.isSignIn) {
+		window.location.href = "/";
+	}
+}
+
+
+$(document).ready(() => {
+	console.log("Ready");
+	rh.schdulerAuthManager = new rh.SchdulerAuthManager();
+	rh.schdulerAuthManager.beginListening(() => {
+		rh.CheckForRedirects();
+		rh.Initialization();
+	});
 });
