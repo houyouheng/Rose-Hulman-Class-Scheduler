@@ -118,6 +118,10 @@ rh.MainPageController = class {
 		$("#generateButton").click((event) => {
 			$("#classRecommandContainer").append(this.createRecommandClassCard("230", "CSSE"));
 		});
+		$("#230Card").click((event) => {
+			console.log("delte!!!");
+			$("#230Card").hide();
+		});
 	}
 	updateView() {
 		$("#classList").removeAttr("id").hide();
@@ -135,7 +139,7 @@ rh.MainPageController = class {
 	createClassCard(classes) {
 		const $newCard = $(
 			`<div>
-                <p><img id="${classes.id}" class="fabIcon" src="images/baseline_remove_circle_black_48dp.png" alt="button" />${classes.department} ${classes.course}</p>
+                <p><img id="fab" class="fabIcon" src="images/baseline_remove_circle_black_48dp.png" alt="button" />${classes.department} ${classes.course}</p>
             </div>`);
 
 		$newCard.click((event) => {
@@ -148,10 +152,16 @@ rh.MainPageController = class {
 
 	createRecommandClassCard(course, department) {
 		const $newCard = $(
-			`<li class="quote-card list-group-item" aria-disabled="true">
-				<div class="quote-card-quote">${department} ${course}</div>
+			`<li  class="quote-card list-group-item" aria-disabled="true">
+				<div  id="230Card" class="quote-card-quote" onmouseover="" style="cursor: pointer;">${department} ${course}</div>
 				<div class="quote-card-movie blockquote-footer">DATA STRUCTURES AND ALGORITHM ANALYSIS</div>
 			</li>`);
+			$newCard.click((event) => {
+				console.log("You have clicked", course);
+				//rh.storage.setMovieQuoteId(movieQuote.id);
+	
+				window.open("https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-230.html");
+			});
 		return $newCard;
 	}
 }

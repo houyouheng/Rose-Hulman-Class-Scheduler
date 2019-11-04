@@ -69,11 +69,35 @@ body {
     padding-top: 0;
 }
 
-#fabIcon{
+#fabIcon {
     height: 100px;
     width: 100px;
 }
 
-#classRecommandContainer{
+#classRecommandContainer {
     padding: 0px;
+}
+
+#classContainer {
+    overflow-x: hidden;
+    overflow-x: auto;
+    height: 300px;
+}
+
+@media (min-width: 576px) {
+    #classContainer {
+        overflow-x: hidden;
+        overflow-x: auto;
+        height: 500px;
+    }
+
+}
+
+#fab {
+    max-height: 50px;
+    max-width: 50px;
+}
+
+p{
+    margin-bottom: 0px;
 }
