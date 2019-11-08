@@ -11,6 +11,12 @@ rh.KEY_DEPARTMENT = "department";
 rh.KEY_COURSE = "course";
 rh.KEY_LAST_TOUCHED = "lastTouched";
 rh.KEY_UID = "uid"
+
+rh.KEY_NAME = "Name";
+rh.KEY_DESCRIPTION = "Description";
+rh.KEY_URL = "Url";
+rh.KEY_PREREQUISITE = "Prerequisite";
+
 rh.ROSEFIRE_REGISTRY_TOKEN = "6c0ca7cf-3d91-4559-aecc-ffa8fb5aee76";
 
 rh.mainpageManager = null;
@@ -21,6 +27,16 @@ rh.className = class {
 		this.id = id;
 		this.department = department;
 		this.course = course;
+	}
+}
+
+rh.recommandClassName = class {
+	constructor(id, name, description, url, prerequsite) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.url = url;
+		this.prerequsite = prerequsite;
 	}
 }
 
@@ -84,16 +100,15 @@ rh.MainpageManager = class {
 		);
 	}
 
-	// getAndThenDeleteCourseAtIndex(index) {
-	// 	let id = this._documentSnapshots[index].id;
-	// 	let classCard = new rh.className(
-	// 		this._documentSnapshots[index].id,
-	// 		this._documentSnapshots[index].get(rh.KEY_DEPARTMENT),
-	// 		this._documentSnapshots[index].get(rh.KEY_COURSE)
-	// 	);
-
-	// 	return classCard;
-	// }
+	getRecommandCourseAtIndex(index) {
+		return new rh.className(
+			this._documentSnapshots[index].id,
+			this._documentSnapshots[index].get(rh.KEY_NAME),
+			this._documentSnapshots[index].get(rh.KEY_DESCRIPTION),
+			this._documentSnapshots[index].get(rh.KEY_URL),
+			this._documentSnapshots[index].get(rh.KEY_PREREQUISITE)
+		);
+	}
 
 }
 
@@ -139,11 +154,11 @@ rh.MainPageController = class {
 			);
 			$newList.append($newCard);
 		}
-		if (rh.mainpageManager.length >= 1){
+		if (rh.mainpageManager.length >= 1) {
 			$("#classContainer").prepend($newList);
 			//console.log("Prepend Test");
 		}
-		
+
 		// console.log("Test");
 	}
 
@@ -179,8 +194,7 @@ rh.MainPageController = class {
 	generateListofClasses() {
 		//Pull from firebase 		//Delete from firebase
 		for (let k = 0; k < rh.mainpageManager.length; k++) {
-			rh.mainpageManager.getCourseAtIndex(k)
-			// console.log("K: ", k);
+			rh.mainpageManager.getRecommandCourseAtIndex(k)
 		}
 
 		//Generate list of classes from the classes taken
@@ -241,7 +255,6 @@ rh.LoginPageController = class {
 	}
 }
 
-
 rh.Initialization = function () {
 	var urlParams = new URLSearchParams(window.location.search);
 	if ($("#login-page").length) {
@@ -267,7 +280,6 @@ rh.CheckForRedirects = function () {
 		window.location.href = "/";
 	}
 }
-
 
 $(document).ready(() => {
 	console.log("Ready");

@@ -1,7 +1,16 @@
 {
-    "CSSE": {
-        "first-key": {
-            "website": "dalenguyen.me"
+    "CSSE": [
+        {
+            "School": "1",
+            "Hi": "4"
+        },
+        {
+            "School": "2",
+            "Hi": "[5,7]"
+        },
+        {
+            "School": "3",
+            "Hi": "6"
         }
-    }
+    ]
 }
