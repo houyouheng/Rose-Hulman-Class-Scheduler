@@ -84,6 +84,17 @@ rh.MainpageManager = class {
 		);
 	}
 
+	// getAndThenDeleteCourseAtIndex(index) {
+	// 	let id = this._documentSnapshots[index].id;
+	// 	let classCard = new rh.className(
+	// 		this._documentSnapshots[index].id,
+	// 		this._documentSnapshots[index].get(rh.KEY_DEPARTMENT),
+	// 		this._documentSnapshots[index].get(rh.KEY_COURSE)
+	// 	);
+
+	// 	return classCard;
+	// }
+
 }
 
 rh.MainPageController = class {
@@ -94,11 +105,9 @@ rh.MainPageController = class {
 			$("#inputDepartment").val("");
 			$("#inputCourse").val("");
 		});
-
 		$("#addClassDialog").on("shown.bs.modal", function (e) {
 			$("#inputDepartment").trigger("focus");
 		});
-
 		$("#submitAddClass").click((event) => {
 			const department = $("#inputDepartment").val();
 			const course = $("#inputCourse").val();
@@ -106,17 +115,15 @@ rh.MainPageController = class {
 			$("#inputDepartment").val("");
 			$("#inputCourse").val("");
 		});
-
 		$("#menuLogOut").click((event) => {
 			rh.schdulerAuthManager.signOut();
 		});
-
 		$("#menuFlowChart").click((event) => {
 			window.open("https://www.rose-hulman.edu/academics/academic-departments/computer-science-software-engineering/_assets/pdfs/CS-Sample-Program.pdf");
 		});
-
 		$("#generateButton").click((event) => {
-			$("#classRecommandContainer").append(this.createRecommandClassCard("230", "CSSE"));
+			this.generateListofClasses();
+			// $("#classRecommandContainer").append(this.createRecommandClassCard("230", "CSSE"));
 		});
 		$("#230Card").click((event) => {
 			console.log("delte!!!");
@@ -132,8 +139,12 @@ rh.MainPageController = class {
 			);
 			$newList.append($newCard);
 		}
-		$("#classContainer").prepend($newList);
-		console.log("Test");
+		if (rh.mainpageManager.length >= 1){
+			$("#classContainer").prepend($newList);
+			//console.log("Prepend Test");
+		}
+		
+		// console.log("Test");
 	}
 
 	createClassCard(classes) {
@@ -156,13 +167,25 @@ rh.MainPageController = class {
 				<div  id="230Card" class="quote-card-quote" onmouseover="" style="cursor: pointer;">${department} ${course}</div>
 				<div class="quote-card-movie blockquote-footer">DATA STRUCTURES AND ALGORITHM ANALYSIS</div>
 			</li>`);
-			$newCard.click((event) => {
-				console.log("You have clicked", course);
-				//rh.storage.setMovieQuoteId(movieQuote.id);
-	
-				window.open("https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-230.html");
-			});
+		$newCard.click((event) => {
+			console.log("You have clicked", course);
+			//rh.storage.setMovieQuoteId(movieQuote.id);
+
+			window.open("https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-230.html");
+		});
 		return $newCard;
+	}
+
+	generateListofClasses() {
+		//Pull from firebase 		//Delete from firebase
+		for (let k = 0; k < rh.mainpageManager.length; k++) {
+			rh.mainpageManager.getCourseAtIndex(k)
+			// console.log("K: ", k);
+		}
+
+		//Generate list of classes from the classes taken
+		//Create card for each classes
+		//Append card onto html
 	}
 }
 
@@ -217,6 +240,7 @@ rh.LoginPageController = class {
 		})
 	}
 }
+
 
 rh.Initialization = function () {
 	var urlParams = new URLSearchParams(window.location.search);
