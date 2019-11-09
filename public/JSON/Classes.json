@@ -1,7 +1,5 @@
 {
-    "CSSE": [
-        {
-<<<<<<< HEAD
+    "CSSE": [{
             "Name": "CSSE120",
             "Descripotion ": "INTRODUCTION TO SOFTWARE DEVELOPMENT",
             "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-120.html",
@@ -301,5 +299,7 @@
             "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-484.html",
             "Prerequisite": ["CSSE230"]
 
+
+        }
     ]
 }
