@@ -1,16 +1,305 @@
 {
     "CSSE": [
         {
-            "School": "1",
-            "Hi": "4"
+<<<<<<< HEAD
+            "Name": "CSSE120",
+            "Descripotion ": "INTRODUCTION TO SOFTWARE DEVELOPMENT",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-120.html",
+            "Prerequisite": [""]
         },
         {
-            "School": "2",
-            "Hi": "[5,7]"
+            "Name": "CSSE132",
+            "Descripotion ": "Introduction to Computer Systems ",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-132.html",
+            "Prerequisite": ["CSSE120"]
         },
         {
-            "School": "3",
-            "Hi": "6"
-        }
+            "Name": "CSSE212",
+            "Descripotion ": "Hardware-oriented Programming",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-212.html",
+            "Prerequisite": [""]
+        },
+        {
+            "Name": "CSSE220",
+            "Descripotion ": "Object-Oriented Software Development",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-212.html",
+            "Prerequisite": ["CSSE120"]
+        },
+        {
+            "Name": "CSSE221",
+            "Descripotion ": "Fundamentals of Software Development Honors",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-221.html",
+            "Prerequisite": [""]
+        },
+        {
+            "Name": "CSSE225",
+            "Descripotion ": "Programming 3 ",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-225.html",
+            "Prerequisite": [""]
+        },
+        {
+            "Name": "CSSE230",
+            "Descripotion ": "Data Structures and Algorithms Analysis",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-230.html",
+            "Prerequisite": ["MA112, CSSE220"]
+        },
+        {
+            "Name": "CSSE232",
+            "Descripotion ": "Computer Architecture I",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-232.html",
+            "Prerequisite": ["CSSE132", "CSSE120"]
+        },
+        {
+            "Name": "CSSE241",
+            "Descripotion ": "Computing in a Global Society ",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-241.html",
+            "Prerequisite": ["CSSE220"]
+        },
+        {
+            "Name": "CSSE252",
+            "Descripotion ": "Computer Game Design",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-252.html",
+            "Prerequisite": ["RH330"]
+        },
+        {
+            "Name": "CSSE280",
+            "Descripotion ": "Introduction to Web Programming",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-280.html",
+            "Prerequisite": ["CSSE220"]
+        },
+        {
+            "Name": "CSSE286",
+            "Descripotion ": "Introduction to Machine Learning",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-286.html",
+            "Prerequisite": ["CSSE220"]
+        },
+        {
+            "Name": "CSSE290",
+            "Descripotion ": "Special Topics in Computer Science",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-290.html",
+            "Prerequisite": [""]
+        },
+        {
+            "Name": "CSSE304",
+            "Descripotion ": "Programming Language Concepts",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-304.html",
+            "Prerequisite": ["CSSE230"]
+        },
+        {
+            "Name": "CSSE325",
+            "Descripotion ": "Fractals & Chaotic Dynamical Systems",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-325.html",
+            "Prerequisite": ["MA212", "CSSE220"]
+        },
+        {
+            "Name": "CSSE332",
+            "Descripotion ": "Operating Systems",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-332.html",
+            "Prerequisite": ["CSSE220", "CSSE132"]
+        },
+        {
+            "Name": "CSSE333",
+            "Descripotion ": "Database Systems",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-333.html",
+            "Prerequisite": ["MA275", "CSSE230"]
+        },
+        {
+            "Name": "CSSE335",
+            "Descripotion ": "Introduction to Parallel Computing",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-335.html",
+            "Prerequisite": ["MA212"]
+        },
+        {
+            "Name": "CSSE351",
+            "Descripotion ": "Computer Graphics",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-351.html",
+            "Prerequisite": ["MA212", "CSSE220"]
+        },
+        {
+            "Name": "CSSE352",
+            "Descripotion ": "Computer Game Development",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-352.html",
+            "Prerequisite": ["CSSE230"]
+        },
+        {
+            "Name": "CSSE371",
+            "Descripotion ": "Software Requirements Engineering",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-371.html",
+            "Prerequisite": ["CSSE230", "RH330", "CSSE333"]
+        },
+        {
+            "Name": "CSSE372",
+            "Descripotion ": "Software Project Management",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-372.html",
+            "Prerequisite": [""]
+        },
+        {
+            "Name": "CSSE373",
+            "Descripotion ": "Formal Methods in Specification and Design",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-373.html",
+            "Prerequisite": ["CSSE230", "MA275"]
+        },
+        {
+            "Name": "CSSE374",
+            "Descripotion ": "Software Design",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-374.html",
+            "Prerequisite": ["CSSE230"]
+        },
+        {
+            "Name": "CSSE375",
+            "Descripotion ": "Software Construction and Evolution",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-375.html",
+            "Prerequisite": ["CSSE374"]
+        },
+        {
+            "Name": "CSSE376",
+            "Descripotion ": "Software Quality Assurance",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-376.html",
+            "Prerequisite": ["CSSE230"]
+        },
+        {
+            "Name": "CSSE400",
+            "Descripotion ": "CSSE Seminar",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-400.html",
+            "Prerequisite": [""]
+        },
+        {
+            "Name": "CSSE402",
+            "Descripotion ": "Theory and Practice of Garbage Collection",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-402.html",
+            "Prerequisite": ["CSSE332"]
+        },
+        {
+            "Name": "CSSE403",
+            "Descripotion ": "Programming Language Paradigms",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-403.html",
+            "Prerequisite": ["CSSE304"]
+        },
+        {
+            "Name": "CSSE404",
+            "Descripotion ": "Compiler Construction",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-404.html",
+            "Prerequisite": ["CSSE232", "CSSE304", "CSSE474"]
+        },
+        {
+            "Name": "CSSE413",
+            "Descripotion ": "Artificial Intelligence",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-413.html",
+            "Prerequisite": ["CSSE230"]
+        },
+        {
+            "Name": "CSSE432",
+            "Descripotion ": "Computer Networks",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-432.html",
+            "Prerequisite": ["CSSE220"]
+        },
+        {
+            "Name": "CSSE433",
+            "Descripotion ": "Advanced Database Systems ",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-433.html",
+            "Prerequisite": ["CSSE333"]
+        },
+        {
+            "Name": "CSSE434",
+            "Descripotion ": "Introduction to the Hadoop Ecosystem",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-434.html",
+            "Prerequisite": ["CSSE230"]
+        },
+        {
+            "Name": "CSSE435",
+            "Descripotion ": "Robotics Engineering",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-435.html",
+            "Prerequisite": ["ME430"]
+        },
+        {
+            "Name": "CSSE442",
+            "Descripotion ": "Computer Security",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-442.html",
+            "Prerequisite": ["CSSE332"]
+        },
+        {
+            "Name": "CSSE443",
+            "Descripotion ": "Distributed Systems & IT Security",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-443.html",
+            "Prerequisite": [""]
+        },
+        {
+            "Name": "CSSE444",
+            "Descripotion ": "Real-time Systems",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-444.html",
+            "Prerequisite": [""]
+        },
+        {
+            "Name": "CSSE451",
+            "Descripotion ": "Advanced Computer Graphics",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-451.html",
+            "Prerequisite": ["CSSE351"]
+        },
+        {
+            "Name": "CSSE453",
+            "Descripotion ": "Topics in Artificial Intelaligence",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-453.html",
+            "Prerequisite": ["CSSE413"]
+        },
+        {
+            "Name": "CSSE461",
+            "Descripotion ": "Computer Vision",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-461.html",
+            "Prerequisite": ["MA212", "CSSE220"]
+        },
+        {
+            "Name": "CSSE463",
+            "Descripotion ": "Image Recognition",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-463.html",
+            "Prerequisite": ["MA212"]
+        },
+        {
+            "Name": "CSSE473",
+            "Descripotion ": "Design and Analysis of Algorithms",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-473.html",
+            "Prerequisite": ["CSSE230", "MA375"]
+        },
+        {
+            "Name": "CSSE474",
+            "Descripotion ": "Theory of Computation",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-474.html",
+            "Prerequisite": ["CSSE230", "MA375"]
+        },
+        {
+            "Name": "CSSE477",
+            "Descripotion ": "Software Architecture",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-477.html",
+            "Prerequisite": ["CSSE374"]
+        },
+        {
+            "Name": "CSSE479",
+            "Descripotion ": "Cryptography",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-479.html",
+            "Prerequisite": ["MA275", "CSSE220"]
+        },
+        {
+            "Name": "CSSE480",
+            "Descripotion ": "Web App Frameworks with AppEngine",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-480.html",
+            "Prerequisite": ["CSSE230", "CSSE280"]
+        },
+        {
+            "Name": "CSSE481",
+            "Descripotion ": "Web-Based Information Systems",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-481.html",
+            "Prerequisite": ["CSSE230"]
+        },
+        {
+            "Name": "CSSE483",
+            "Descripotion ": "Android Application Development",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-483.html",
+            "Prerequisite": ["CSSE230"]
+        },
+        {
+            "Name": "CSSE484",
+            "Descripotion ": "iOS Application Development",
+            "Url": "https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-484.html",
+            "Prerequisite": ["CSSE230"]
+
     ]
 }
