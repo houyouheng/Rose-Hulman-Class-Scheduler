@@ -7,6 +7,8 @@
 var rh = rh || {};
 
 rh.COLLECTION_CLASSES = "Classes";
+rh.COLLECTION_CSSE = "CSSE";
+
 rh.KEY_DEPARTMENT = "department";
 rh.KEY_COURSE = "course";
 rh.KEY_LAST_TOUCHED = "lastTouched";
@@ -43,7 +45,10 @@ rh.recommandClassName = class {
 rh.MainpageManager = class {
 	constructor(url_uid) {
 		this._ref = firebase.firestore().collection(rh.COLLECTION_CLASSES);
+		this._refCSSE = firebase.firestore().collection(rh.COLLECTION_CSSE);
+
 		this._documentSnapshots = [];
+		this._documentSnapshotsCSSE = [];
 		this._unsubscribe = null;
 		this._uid = url_uid;
 	}
@@ -58,6 +63,19 @@ rh.MainpageManager = class {
 		this._unsubscribe = query.onSnapshot((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				this._documentSnapshots = querySnapshot.docs;
+
+				if (changeListener) {
+					changeListener();
+				}
+			});
+		})
+		//--------------------------------------------------------------------------------
+
+		let query1 = this._refCSSE;
+
+		this._unsubscribe = query1.onSnapshot((querySnapshot) => {
+			querySnapshot.forEach((doc) => {
+				this._documentSnapshotsCSSE = querySnapshot.docs;
 
 				if (changeListener) {
 					changeListener();
@@ -92,6 +110,10 @@ rh.MainpageManager = class {
 		return this._documentSnapshots.length;
 	}
 
+	get recommandedLength() {
+		return this._documentSnapshotsCSSE.length;
+	}
+
 	getCourseAtIndex(index) {
 		return new rh.className(
 			this._documentSnapshots[index].id,
@@ -101,12 +123,13 @@ rh.MainpageManager = class {
 	}
 
 	getRecommandCourseAtIndex(index) {
-		return new rh.className(
-			this._documentSnapshots[index].id,
-			this._documentSnapshots[index].get(rh.KEY_NAME),
-			this._documentSnapshots[index].get(rh.KEY_DESCRIPTION),
-			this._documentSnapshots[index].get(rh.KEY_URL),
-			this._documentSnapshots[index].get(rh.KEY_PREREQUISITE)
+		//console.log(this._documentSnapshotsCSSE);
+		return new rh.recommandClassName(
+			this._documentSnapshotsCSSE[index].id,
+			this._documentSnapshotsCSSE[index].get(rh.KEY_NAME),
+			this._documentSnapshotsCSSE[index].get(rh.KEY_DESCRIPTION),
+			this._documentSnapshotsCSSE[index].get(rh.KEY_URL),
+			this._documentSnapshotsCSSE[index].get(rh.KEY_PREREQUISITE)
 		);
 	}
 
@@ -145,6 +168,7 @@ rh.MainPageController = class {
 			$("#230Card").hide();
 		});
 	}
+
 	updateView() {
 		$("#classList").removeAttr("id").hide();
 		let $newList = $("<div></div>").attr("id", "classList");
@@ -176,30 +200,69 @@ rh.MainPageController = class {
 		return $newCard;
 	}
 
-	createRecommandClassCard(course, department) {
+	createRecommandClassCard(name, description, url) {
 		const $newCard = $(
 			`<li  class="quote-card list-group-item" aria-disabled="true">
-				<div  id="230Card" class="quote-card-quote" onmouseover="" style="cursor: pointer;">${department} ${course}</div>
-				<div class="quote-card-movie blockquote-footer">DATA STRUCTURES AND ALGORITHM ANALYSIS</div>
+				<div  class="quote-card-quote" onmouseover="" style="cursor: pointer;">${name}</div>
+				<div class="quote-card-movie blockquote-footer">${description}</div>
 			</li>`);
 		$newCard.click((event) => {
-			console.log("You have clicked", course);
-			//rh.storage.setMovieQuoteId(movieQuote.id);
-
-			window.open("https://www.rose-hulman.edu/academics/course-catalog/current/programs/Computer%20Science/csse-230.html");
+			console.log("You have clicked", name);
+			window.open(`${url}`);
 		});
 		return $newCard;
 	}
 
 	generateListofClasses() {
-		//Pull from firebase 		//Delete from firebase
+		//Get classes taken
+		var showList = [];
+		var takenClasses = [];
 		for (let k = 0; k < rh.mainpageManager.length; k++) {
-			rh.mainpageManager.getRecommandCourseAtIndex(k)
+			takenClasses.push(rh.mainpageManager.getCourseAtIndex(k).department + rh.mainpageManager.getCourseAtIndex(k).course);
 		}
 
-		//Generate list of classes from the classes taken
-		//Create card for each classes
-		//Append card onto html
+		//Pull single recommand class from firebase
+		for (let k = 0; k < rh.mainpageManager.recommandedLength; k++) {
+			var recommandClass = rh.mainpageManager.getRecommandCourseAtIndex(k);
+
+			//Pull Prereq classes
+			var prerequsiteClasses = recommandClass.prerequsite;
+
+			//Compare the Prereq classes and classes taken
+			//if no pre 
+			if (prerequsiteClasses[0] == "") {
+				//add it to the list of shows
+				// showList.push(recommandClass);
+				// console.log("Added: ", recommandClass);
+			} else {
+				//if more than 1 compare it
+				var flag;
+				for (let i = 0; i < prerequsiteClasses.length; i++) {
+					flag = false;
+					if (!takenClasses.includes(prerequsiteClasses[i])) {
+						//Go to the next iteration
+						flag = true;
+					}
+				}
+				//add to the list
+				if (!flag) {
+					showList.push(recommandClass);
+					console.log("Added: ", recommandClass);
+				}
+			}
+		}
+
+		//Create card for each classes and append card onto html
+		$("#recommandClassList").removeAttr("id").hide();
+		let $newList = $("<ul></ul>").attr("id", "recommandClassList");
+		for (let j = 0; j < showList.length; j++) {
+			const name = showList[j].name;
+			const description = showList[j].description;
+			const url = showList[j].url;
+			var $card = this.createRecommandClassCard(name, description, url);
+			$newList.append($card);
+		}
+		$("#classRecommandContainer").prepend($newList);
 	}
 }
 

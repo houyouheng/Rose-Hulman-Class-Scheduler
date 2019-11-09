@@ -98,7 +98,10 @@ body {
     max-width: 50px;
 }
 
-p{
+p {
     margin-bottom: 0px;
 }
 
+#recommandClassList {
+    padding: 0px;
+}
