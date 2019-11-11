@@ -167,6 +167,52 @@ rh.MainPageController = class {
 			console.log("delte!!!");
 			$("#230Card").hide();
 		});
+		$("#inputDepartment").change((event) => {
+			console.log('$("#inputDepartment").val() :', $("#inputDepartment").val());
+			$("#inputCourse").remove();
+			if ($("#inputDepartment").val() == "CSSE") {
+				const $newDropdown = $(`
+				<select id="inputCourse" class="custom-select">
+					<option selected>Course</option>
+					<option value="120">120</option>
+					<option value="132">132</option>
+					<option value="212">212</option>
+					<option value="220">220</option>
+					<option value="221">221</option>
+					<option value="230">230</option>
+					<option value="232">232</option>
+					<option value="333">333</option>
+					<option value="374">374</option>
+					<option value="304">304</option>
+					<option value="132">132</option>
+					<option value="232">232</option>
+					<option value="332">332</option>
+					<option value="374">374</option>
+					<option value="413">413</option>
+					<option value="473">473</option>
+					<option value="474">474</option>
+				</select>`);
+				$("#inputCourseDropdown").append($newDropdown);
+			} else if ($("#inputDepartment").val() == "MA") {
+				const $newDropdown = $(`
+				<select id="inputCourse" class="custom-select">
+					<option selected>Course</option>
+					<option value="112">112</option>
+					<option value="212">212</option>
+					<option value="275">275</option>
+					<option value="375">375</option>
+				</select>`);
+				$("#inputCourseDropdown").append($newDropdown);
+			} else if ($("#inputDepartment").val() == "RH") {
+				const $newDropdown = $(`
+				<select id="inputCourse" class="custom-select">
+					<option selected>Course</option>
+					<option value="330">330</option>
+				</select>`);
+				$("#inputCourseDropdown").append($newDropdown);
+			}
+		});
+
 	}
 
 	updateView() {
@@ -215,33 +261,35 @@ rh.MainPageController = class {
 
 	generateListofClasses() {
 		//Get classes taken
-		var showList = [];
-		var takenClasses = [];
+		let showList = [];
+		let takenClasses = [];
 		for (let k = 0; k < rh.mainpageManager.length; k++) {
 			takenClasses.push(rh.mainpageManager.getCourseAtIndex(k).department + rh.mainpageManager.getCourseAtIndex(k).course);
 		}
 
 		//Pull single recommand class from firebase
 		for (let k = 0; k < rh.mainpageManager.recommandedLength; k++) {
-			var recommandClass = rh.mainpageManager.getRecommandCourseAtIndex(k);
+			let recommandClass = rh.mainpageManager.getRecommandCourseAtIndex(k);
 
 			//Pull Prereq classes
-			var prerequsiteClasses = recommandClass.prerequsite;
+			let prerequsiteClasses = recommandClass.prerequsite;
 
 			//Compare the Prereq classes and classes taken
 			//if no pre 
 			if (prerequsiteClasses[0] == "") {
 				//add it to the list of shows
-				// showList.push(recommandClass);
+				showList.push(recommandClass);
 				// console.log("Added: ", recommandClass);
 			} else {
 				//if more than 1 compare it
-				var flag;
+				let flag;
 				for (let i = 0; i < prerequsiteClasses.length; i++) {
 					flag = false;
+					// console.log('prerequsiteClasses :' + i, prerequsiteClasses[i]);
 					if (!takenClasses.includes(prerequsiteClasses[i])) {
 						//Go to the next iteration
 						flag = true;
+						break;
 					}
 				}
 				//add to the list
