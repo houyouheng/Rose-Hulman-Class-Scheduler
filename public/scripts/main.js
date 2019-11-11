@@ -203,6 +203,13 @@ rh.MainPageController = class {
 					<option value="375">375</option>
 				</select>`);
 				$("#inputCourseDropdown").append($newDropdown);
+			}else if ($("#inputDepartment").val() == "ME") {
+				const $newDropdown = $(`
+				<select id="inputCourse" class="custom-select">
+					<option selected>Course</option>
+					<option value="430">430</option>
+				</select>`);
+				$("#inputCourseDropdown").append($newDropdown);
 			} else if ($("#inputDepartment").val() == "RH") {
 				const $newDropdown = $(`
 				<select id="inputCourse" class="custom-select">
