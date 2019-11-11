@@ -96,7 +96,7 @@ body {
 #classRecommandContainer {
     overflow-x: hidden;
     overflow-x: auto;
-    height: 275px;
+    height: 250px;
 }
 
 @media (min-width: 576px) {
