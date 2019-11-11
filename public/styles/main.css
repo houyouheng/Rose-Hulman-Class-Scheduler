@@ -93,6 +93,20 @@ body {
 
 }
 
+#classRecommandContainer {
+    overflow-x: hidden;
+    overflow-x: auto;
+    height: 275px;
+}
+
+@media (min-width: 576px) {
+    #classRecommandContainer {
+        overflow-x: initial;
+    }
+
+}
+
+
 #fab {
     max-height: 50px;
     max-width: 50px;
